@@ -5,15 +5,17 @@ import com.pe.platform.membership.interfaces.rest.resources.CreatePlanResource;
 
 public class CreatePlanCommandFromResourceAssembler {
     public static CreatePlanCommand toCommandFromResource(CreatePlanResource resource) {
+        boolean hasTrial = resource.getTrialDays() != null && resource.getTrialDays() > 0;
+        
         return new CreatePlanCommand(
-            resource.name(),
-            resource.description(),
-            resource.price(),
-            resource.currencyCode(),
-            resource.billingPeriod(),
-            resource.hasTrial(),
-            resource.trialDuration(),
-            resource.benefitIds()
+            resource.getName(),
+            resource.getDescription(),
+            resource.getPrice(),
+            resource.getCurrency(),
+            resource.getBillingPeriod(),
+            hasTrial,
+            resource.getTrialDays(),
+            resource.getBenefitIds()
         );
     }
 } 

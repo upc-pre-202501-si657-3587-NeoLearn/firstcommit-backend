@@ -31,4 +31,16 @@ public class Benefit extends AuditableAbstractAggregateRoot<Benefit> {
         this.description = description;
         this.type = type;
     }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    public void setType(BenefitType type) {
+        this.type = type;
+    }
 } 

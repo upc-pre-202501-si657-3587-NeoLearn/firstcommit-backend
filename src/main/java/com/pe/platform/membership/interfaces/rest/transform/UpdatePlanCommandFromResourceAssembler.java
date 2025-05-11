@@ -5,15 +5,17 @@ import com.pe.platform.membership.interfaces.rest.resources.UpdatePlanResource;
 
 public class UpdatePlanCommandFromResourceAssembler {
     public static UpdatePlanCommand toCommandFromResource(Long planId, UpdatePlanResource resource) {
+        boolean hasTrial = resource.getTrialDays() != null && resource.getTrialDays() > 0;
+        
         return new UpdatePlanCommand(
             planId,
-            resource.name(),
-            resource.description(),
-            resource.price(),
-            resource.currencyCode(),
-            resource.billingPeriod(),
-            resource.hasTrial(),
-            resource.trialDuration()
+            resource.getName(),
+            resource.getDescription(),
+            resource.getPrice(),
+            resource.getCurrency(),
+            resource.getBillingPeriod(),
+            hasTrial,
+            resource.getTrialDays()
         );
     }
 } 

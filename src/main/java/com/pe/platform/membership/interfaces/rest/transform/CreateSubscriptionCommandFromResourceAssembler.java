@@ -6,9 +6,9 @@ import com.pe.platform.membership.interfaces.rest.resources.CreateSubscriptionRe
 public class CreateSubscriptionCommandFromResourceAssembler {
     public static CreateSubscriptionCommand toCommandFromResource(CreateSubscriptionResource resource) {
         return new CreateSubscriptionCommand(
-            resource.userId(),
-            resource.planId(),
-            resource.status()
+            resource.getUserId(),
+            resource.getPlanId(),
+            resource.getStatus()
         );
     }
 } 

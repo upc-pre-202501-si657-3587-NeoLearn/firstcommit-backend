@@ -4,6 +4,7 @@ import com.pe.platform.membership.domain.model.entities.Benefit;
 import com.pe.platform.membership.domain.model.queries.GetAllBenefitsQuery;
 import com.pe.platform.membership.domain.model.queries.GetBenefitByIdQuery;
 import com.pe.platform.membership.domain.model.queries.GetBenefitsByTypeQuery;
+import com.pe.platform.membership.domain.model.valueobjects.BenefitType;
 import com.pe.platform.membership.domain.services.BenefitQueryService;
 import com.pe.platform.membership.infrastructure.persistence.jpa.repositories.BenefitRepository;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ public class BenefitQueryServiceImpl implements BenefitQueryService {
 
     @Override
     public List<Benefit> handle(GetBenefitsByTypeQuery query) {
-        return benefitRepository.findByType(query.type());
+        BenefitType benefitType = BenefitType.valueOf(query.type());
+        return benefitRepository.findByType(benefitType);
     }
 } 

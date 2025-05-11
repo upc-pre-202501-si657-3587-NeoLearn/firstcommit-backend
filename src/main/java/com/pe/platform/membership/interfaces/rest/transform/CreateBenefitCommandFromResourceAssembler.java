@@ -6,9 +6,9 @@ import com.pe.platform.membership.interfaces.rest.resources.CreateBenefitResourc
 public class CreateBenefitCommandFromResourceAssembler {
     public static CreateBenefitCommand toCommandFromResource(CreateBenefitResource resource) {
         return new CreateBenefitCommand(
-            resource.name(),
-            resource.description(),
-            resource.type()
+            resource.getName(),
+            resource.getDescription(),
+            resource.getType()
         );
     }
 } 

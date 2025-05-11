@@ -6,8 +6,14 @@ import com.pe.platform.membership.interfaces.rest.resources.PlanResource;
 
 import java.util.stream.Collectors;
 
+
 public class PlanResourceFromEntityAssembler {
+
     public static PlanResource toResourceFromEntity(Plan entity) {
+        var benefitResources = entity.getBenefits().stream()
+                .map(BenefitResourceFromEntityAssembler::toResourceFromEntity)
+                .collect(Collectors.toList());
+                
         return new PlanResource(
             entity.getId(),
             entity.getName(),
@@ -15,20 +21,8 @@ public class PlanResourceFromEntityAssembler {
             entity.getPrice().getAmount(),
             entity.getPrice().getCurrencyCode(),
             entity.getBillingPeriod(),
-            entity.isHasTrial(),
             entity.getTrialDuration(),
-            entity.getBenefits().stream()
-                .map(benefit -> new BenefitResource(
-                    benefit.getId(),
-                    benefit.getName(),
-                    benefit.getDescription(),
-                    benefit.getType(),
-                    benefit.getCreatedAt(),
-                    benefit.getUpdatedAt()
-                ))
-                .collect(Collectors.toList()),
-            entity.getCreatedAt(),
-            entity.getUpdatedAt()
+            benefitResources
         );
     }
 } 

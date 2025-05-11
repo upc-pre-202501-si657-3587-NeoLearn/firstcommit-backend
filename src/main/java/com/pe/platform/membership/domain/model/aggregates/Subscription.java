@@ -57,6 +57,10 @@ public class Subscription extends AuditableAbstractAggregateRoot<Subscription> {
         this.trialEndsAt = null;
     }
 
+    public void setRenewalDate(LocalDateTime renewalDate) {
+        this.renewalDate = renewalDate;
+    }
+
     public void cancel() {
         this.status = SubscriptionStatus.CANCELED;
         this.endDate = LocalDateTime.now();

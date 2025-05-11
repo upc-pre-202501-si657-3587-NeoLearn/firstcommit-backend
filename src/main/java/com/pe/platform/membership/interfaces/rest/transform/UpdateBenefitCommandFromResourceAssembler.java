@@ -7,9 +7,9 @@ public class UpdateBenefitCommandFromResourceAssembler {
     public static UpdateBenefitCommand toCommandFromResource(Long benefitId, UpdateBenefitResource resource) {
         return new UpdateBenefitCommand(
             benefitId,
-            resource.name(),
-            resource.description(),
-            resource.type()
+            resource.getName(),
+            resource.getDescription(),
+            resource.getType()
         );
     }
 } 

@@ -6,11 +6,11 @@ import com.pe.platform.membership.interfaces.rest.resources.CreateProfileResourc
 public class CreateProfileCommandFromResourceAssembler {
     public static CreateProfileCommand toCommandFromResource(CreateProfileResource resource) {
         return new CreateProfileCommand(
-            resource.userId(),
-            resource.fullName(),
-            resource.email(),
-            resource.phone(),
-            resource.bio()
+            resource.getUserId(),
+            resource.getFullName(),
+            resource.getEmail(),
+            resource.getPhone(),
+            resource.getBio()
         );
     }
 } 

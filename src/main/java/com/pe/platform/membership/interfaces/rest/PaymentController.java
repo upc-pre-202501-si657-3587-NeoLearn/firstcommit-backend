@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -35,8 +36,9 @@ public class PaymentController {
             resource.getSubscriptionId(),
             resource.getAmount(),
             resource.getCurrency(),
-            resource.getPaymentMethod(),
-            resource.getPaymentStatus()
+            LocalDateTime.now(),
+            resource.getPaymentStatus(),
+            resource.getPaymentMethod()
         );
         var payment = paymentCommandService.handle(createPaymentCommand);
         if(payment.isEmpty()) return ResponseEntity.badRequest().build();

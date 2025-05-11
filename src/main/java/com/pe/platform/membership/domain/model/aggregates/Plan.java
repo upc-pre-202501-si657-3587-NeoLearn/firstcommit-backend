@@ -54,6 +54,22 @@ public class Plan extends AuditableAbstractAggregateRoot<Plan> {
         this.benefits = new HashSet<>();
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPrice(Money price) {
+        this.price = price;
+    }
+
+    public void setBillingPeriod(BillingPeriod billingPeriod) {
+        this.billingPeriod = billingPeriod;
+    }
+
     public Plan withTrial(int trialDuration) {
         this.hasTrial = true;
         this.trialDuration = trialDuration;

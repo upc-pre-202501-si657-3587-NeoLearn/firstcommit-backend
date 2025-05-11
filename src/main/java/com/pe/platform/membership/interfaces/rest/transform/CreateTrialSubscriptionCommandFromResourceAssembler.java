@@ -6,9 +6,9 @@ import com.pe.platform.membership.interfaces.rest.resources.CreateTrialSubscript
 public class CreateTrialSubscriptionCommandFromResourceAssembler {
     public static CreateTrialSubscriptionCommand toCommandFromResource(CreateTrialSubscriptionResource resource) {
         return new CreateTrialSubscriptionCommand(
-            resource.userId(),
-            resource.planId(),
-            resource.trialDays()
+            resource.getUserId(),
+            resource.getPlanId(),
+            resource.getTrialDays()
         );
     }
 } 

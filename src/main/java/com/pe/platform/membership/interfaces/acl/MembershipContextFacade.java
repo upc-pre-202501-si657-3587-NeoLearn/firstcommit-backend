@@ -18,14 +18,7 @@ import com.pe.platform.membership.domain.services.SubscriptionQueryService;
 
 import java.util.Optional;
 
-/**
- * MembershipContextFacade
- * <p>
- *     This class is a facade for the Membership context. It provides a simple interface for other bounded contexts to interact with the
- *     Membership context.
- *     This class is a part of the ACL layer.
- * </p>
- */
+
 public class MembershipContextFacade {
     private final ProfileCommandService profileCommandService;
     private final ProfileQueryService profileQueryService;

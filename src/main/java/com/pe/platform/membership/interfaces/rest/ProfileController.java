@@ -50,6 +50,7 @@ public class ProfileController {
         var updateProfileCommand = new UpdateProfileCommand(
             profileId,
             resource.getFullName(),
+            null,
             resource.getPhone(),
             resource.getBio()
         );

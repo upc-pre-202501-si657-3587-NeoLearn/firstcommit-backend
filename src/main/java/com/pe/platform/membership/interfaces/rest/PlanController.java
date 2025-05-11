@@ -1,5 +1,7 @@
 package com.pe.platform.membership.interfaces.rest;
 
+import com.pe.platform.membership.domain.model.commands.AddBenefitToPlanCommand;
+import com.pe.platform.membership.domain.model.commands.RemoveBenefitFromPlanCommand;
 import com.pe.platform.membership.domain.model.commands.CreatePlanCommand;
 import com.pe.platform.membership.domain.model.commands.UpdatePlanCommand;
 import com.pe.platform.membership.domain.model.queries.GetAllPlansQuery;
@@ -9,7 +11,9 @@ import com.pe.platform.membership.domain.services.PlanQueryService;
 import com.pe.platform.membership.interfaces.rest.resources.CreatePlanResource;
 import com.pe.platform.membership.interfaces.rest.resources.PlanResource;
 import com.pe.platform.membership.interfaces.rest.resources.UpdatePlanResource;
+import com.pe.platform.membership.interfaces.rest.transform.CreatePlanCommandFromResourceAssembler;
 import com.pe.platform.membership.interfaces.rest.transform.PlanResourceFromEntityAssembler;
+import com.pe.platform.membership.interfaces.rest.transform.UpdatePlanCommandFromResourceAssembler;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,14 +37,7 @@ public class PlanController {
 
     @PostMapping
     public ResponseEntity<PlanResource> createPlan(@RequestBody CreatePlanResource resource){
-        var createPlanCommand = new CreatePlanCommand(
-            resource.getName(),
-            resource.getDescription(),
-            resource.getPrice(),
-            resource.getCurrency(),
-            resource.getBillingPeriod(),
-            resource.getTrialDays()
-        );
+        var createPlanCommand = CreatePlanCommandFromResourceAssembler.toCommandFromResource(resource);
         var plan = planCommandService.handle(createPlanCommand);
         if(plan.isEmpty()) return ResponseEntity.badRequest().build();
         var planResource = PlanResourceFromEntityAssembler.toResourceFromEntity(plan.get());
@@ -49,15 +46,7 @@ public class PlanController {
 
     @PutMapping("/{planId}")
     public ResponseEntity<PlanResource> updatePlan(@PathVariable Long planId, @RequestBody UpdatePlanResource resource){
-        var updatePlanCommand = new UpdatePlanCommand(
-            planId,
-            resource.getName(),
-            resource.getDescription(),
-            resource.getPrice(),
-            resource.getCurrency(),
-            resource.getBillingPeriod(),
-            resource.getTrialDays()
-        );
+        var updatePlanCommand = UpdatePlanCommandFromResourceAssembler.toCommandFromResource(planId, resource);
         var plan = planCommandService.handle(updatePlanCommand);
         if(plan.isEmpty()) return ResponseEntity.notFound().build();
         var planResource = PlanResourceFromEntityAssembler.toResourceFromEntity(plan.get());
@@ -85,7 +74,7 @@ public class PlanController {
 
     @PostMapping("/{planId}/benefits/{benefitId}")
     public ResponseEntity<PlanResource> addBenefitToPlan(@PathVariable Long planId, @PathVariable Long benefitId) {
-        var command = new com.pe.platform.membership.domain.model.commands.AddBenefitToPlanCommand(planId, benefitId);
+        var command = new AddBenefitToPlanCommand(planId, benefitId);
         var plan = planCommandService.handle(command);
         if(plan.isEmpty()) return ResponseEntity.badRequest().build();
         var planResource = PlanResourceFromEntityAssembler.toResourceFromEntity(plan.get());
@@ -94,7 +83,7 @@ public class PlanController {
 
     @DeleteMapping("/{planId}/benefits/{benefitId}")
     public ResponseEntity<PlanResource> removeBenefitFromPlan(@PathVariable Long planId, @PathVariable Long benefitId) {
-        var command = new com.pe.platform.membership.domain.model.commands.RemoveBenefitFromPlanCommand(planId, benefitId);
+        var command = new RemoveBenefitFromPlanCommand(planId, benefitId);
         var plan = planCommandService.handle(command);
         if(plan.isEmpty()) return ResponseEntity.badRequest().build();
         var planResource = PlanResourceFromEntityAssembler.toResourceFromEntity(plan.get());
